@@ -56,7 +56,7 @@ class Release extends CI_Controller {
 		
 		$page_data['project_table'] = $project_table;
 
-		$this->load->view('AdminTwo/project',$page_data);
+		$this->load->view('AdminTwo/project_page',$page_data);
 	}
 	
 	public function version($id,$name)

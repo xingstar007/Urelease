@@ -8,7 +8,7 @@ if( !function_exists("get_project_data")){
 				$p_data[$i][0] = $p_list[$i]['project_id'];
 				$p_data[$i][1] = $p_list[$i]['project_name'];
 				$p_data[$i][2] = $p_list[$i]['page_url'];
-				$p_data[$i][3] = '<button type="button" class="btn btn-outline btn-default btn-xs">Default</button>';
+				$p_data[$i][3] = '<a href = "./release/version/'.$p_list[$i]['project_id'].'/'.$p_list[$i]['project_name'].'"><button type="button" class="btn btn-outline btn-default btn-xs">Default</button></a>';
 			}
 		}
 		return $p_data;
