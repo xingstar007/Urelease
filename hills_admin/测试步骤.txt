@@ -1,0 +1,5 @@
+1、复制此文件夹至WEB根目录。
+2、新建数据库 hills_admin,导入根目录下hills_admin.sql文件。
+3、修改config/database.php文件中数据库用户名，密码（默认用户名为root，密码为空）
+4、修改根目录下.htaccess文件第6行 RewriteRule ^(.*)$ /hills_admin/index.php/$1 [L] 为对应路径（默认不需修改）。
+5、访问主页即可

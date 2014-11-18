@@ -1,0 +1,293 @@
+/*
+ * Hills Admin v1.0 - Core Stylesheet
+ *
+ * This file is part of Hills Admin.
+ * For questions, suggestions or support request, please mail me at hillsdong@163.com
+ *
+ * Development Started:
+ * August 21, 2013
+ *
+ * ===============================================
+ * Table of Contents
+ * ===============================================
+ *
+ * 1. Colors
+ * 2. Selection Colors
+ * 3. Body
+ * 4. Main Wrapper
+ * 5. Header
+ *    5.1 Top Header
+ *        5.1.1 Top Header Toolbar
+ *        5.1.2 Top Header Buttons
+ *        5.1.3 Top Header Dropdown
+ *    5.2 Bottom Header
+ *        5.2.1 Search
+ *        5.2.2 Breadcrumbs
+ * 6. Main Content
+ *    6.1 Sidebar Separator
+ *    6.2 Sidebar
+ *        6.2.1 Main Navigation
+ *              6.2.1.1 Sub Navigation
+ *    6.3 Main Container
+ * 7. Footer
+ * 8. Media Queries
+ *    8.1 Media query for screens smaller than 1024px (Tablet, old Desktop)
+ *    8.2 Media query for screens between 480px and 1024px (Tablet to desktop)
+ *    8.3 Media query for screens smaller than 768px (Tablet Portrait)
+ *    8.4 Media query for screens smaller than 480px (Full Mobile)
+ *
+ */
+
+/* (1) Colors
+================================================== */
+
+.ha-highlight
+{
+    color:#D44D24;
+}
+
+::-webkit-input-placeholder
+{
+    color:#999;
+}
+
+:-moz-placeholder
+{
+    color:#999;
+}
+
+.placeholder
+{
+    color:#999;
+}
+
+a
+{
+    color:#73991f;
+    text-decoration:none;
+    outline:none;
+}
+
+a:hover
+{
+    text-decoration:underline;
+}
+
+
+/* (2) Selection Colors
+================================================== */
+
+::-moz-selection
+{
+    color:#ffffff;
+    background: #A9CA60;
+}
+
+::selection
+{
+    color:#ffffff;
+    background:#A9CA60;
+}
+
+/* (3) Body
+================================================== */
+
+body
+{
+    background-color:#f2f2f2;
+    color:#444444;
+    font:12px/1.5 微软雅黑,Verdana,sans-serif,宋体;
+}
+
+/* (4) Main Wrapper
+================================================== */
+
+div#ha-wrapper
+{
+    height:auto;
+    min-height:100%;
+    position:relative;
+    min-width:320px;
+}
+
+div#ha-wrapper, 
+div#ha-wrapper.fluid
+{
+    width:100%;
+}
+
+div#ha-wrapper .ha-container, 
+div#ha-wrapper.fluid .ha-container
+{
+    width:96%;
+    margin:auto;
+}
+
+/* (5) Header
+================================================== */
+
+div#ha-header
+{
+    z-index:200;
+    position:relative;
+    margin-bottom: 8px;
+}
+
+    /* (5.1) Top Header
+    ================================================== */
+
+    div#ha-header #ha-header-top
+    {
+        position:relative;
+        background: url(images/header-top-carbon.png);
+    }
+    
+    div#ha-header #ha-header-top #ha-logo-wrap
+    {
+        float:left;
+    }
+    
+    div#ha-header #ha-header-top #ha-logo
+    {
+        width:320px;
+        height:55px;
+        display:table-cell;
+        vertical-align:middle;
+    }
+    
+    div#ha-header #ha-header-top #ha-logo-img img
+    {
+        max-width:320px;
+        max-height:55px;
+    }
+
+    /* (5.2) Bottom Header
+    ================================================== */
+    
+    div#ha-header #ha-header-bottom
+    {
+        padding-top:2px;
+        background:#fff;
+    }
+        div#ha-header #ha-header-bottom .breadcrumb
+        {
+            margin:0 0 2px 230px;
+            background-color:transparent;
+        }
+
+/* (6) Main Content
+================================================== */
+
+div#ha-content
+{
+    clear:both;
+    padding-bottom:58px;
+}
+
+    /* (6.1) Sidebar Separator
+    ================================================== */
+    
+    div#ha-wrapper #ha-sidebar-separator, 
+    div#ha-wrapper.fluid #ha-sidebar-separator
+    {
+        position:absolute;
+        left:180px;
+        width:50px;
+        margin-left:2%;
+        top:0; bottom:0;
+        background:url(images/container-separator.png) repeat-y center top;
+    }
+    
+    
+    div#ha-wrapper.fixed #ha-sidebar-separator
+    {
+        left:50%;
+        margin-left:-300px;
+    }
+    
+    /* (6.2) Sidebar
+    ================================================== */
+    
+    div#ha-content #ha-sidebar
+    {
+        position:relative;
+        float:left;
+        z-index:150;
+    }
+        div#ha-content #ha-sidebar #ha-main-nav
+        {
+            width:174px;
+            padding: 2px;
+            border:1px solid #cacaca;
+            margin-bottom:6px;
+            border-radius: 4px;
+        }
+
+    /* (6.3) Main Container
+    ================================================== */
+    
+    div#ha-content #ha-content-wrap
+    {
+        margin-left:230px;
+        padding-bottom:20px;
+        margin-top:20px;
+    }
+    
+    div#ha-content #ha-content-wrap #ha-content-area
+    {
+        float:left;
+        width:100%;
+        display:block;
+    }
+
+/* (7) Footer
+================================================== */
+
+div#ha-footer
+{
+    background:#ffffff;
+    border-top:1px solid #d0d0d0;
+    padding:20px 0;
+    text-align:center;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+div#ha-footer p
+{
+    margin:0;
+}
+
+/* (8) Table
+================================================== */
+.ha-table-box{
+    background: #fff;
+    border:1px solid #bfbfbf;
+    border-radius: 5px;
+}
+    .ha-table-box form{
+        margin-bottom: 0;
+    }
+ .ha-table-title{
+    margin:0 0 10px;
+    padding:10px 5px 5px;
+    background: #eee;
+    position: relative;
+    border-bottom:1px solid #bfbfbf;
+ }
+    .ha-table-title-right{
+        position: absolute;
+        right:5px;
+        top:15px;
+    }
+ .ha-table-header,.ha-table-content,.ha-table-footer{
+        padding:5px;
+ }
+ .ha-table-footer{
+    background: #eee;
+    border-top:1px solid #bfbfbf;
+ }
+    .ha-table-footer .pagination{
+        margin:0;
+    }
