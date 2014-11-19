@@ -1,55 +1,27 @@
 <?php	if (!defined('BASEPATH')) {exit('Access Denied');}
 class Release extends CI_Controller {
-	
-	
-	
-	
+				
 	function __construct()
 	{
 		parent::__construct();
-		//加载项目列表数据	
+
 		$this->load->model('Release_model');
-		//加载HTML表格库
-		$this->load->library('table');
-		$this->load->library('form_validation');
-		$this->load->helper('form');
 		$this->load->helper('release_helper');
 
 	}
 	
 	public function index(){
+
+		$this->load->library('table');
+		
 		$projectlist = $this->Release_model->get_all_project();
 		$project_data = get_project_data($projectlist);
 
-		//页面信息
 		$page_data['page_title'] = '产品发布管理';
 		$page_data['project_table_title'] = '项目列表';
+					
+		$this->table->set_template(default_table_style());
 		
-		//设置表格样式dataTables
-		$dataTables = array (
-		
-				'table_open'          => '<table class="table table-striped table-bordered table-hover" id="dataTables-example">',
-		
-				'heading_row_start'   => '<tr>',
-				'heading_row_end'     => '</tr>',
-				'heading_cell_start'  => '<th>',
-				'heading_cell_end'    => '</th>',
-		
-				'row_start'           => '<tr class="odd gradeX">',
-				'row_end'             => '</tr>',
-				'cell_start'          => '<td>',
-				'cell_end'            => '</td>',
-		
-				'row_alt_start'       => '<tr class="even gradeC">',
-				'row_alt_end'         => '</tr>',
-				'cell_alt_start'      => '<td>',
-				'cell_alt_end'        => '</td>',
-		
-				'table_close'         => '</table>'
-		);				
-		$this->table->set_template($dataTables);
-		
-		//设置表格列名称
 		$this->table->set_heading('项目ID', '项目名称', '项目下载页面地址','操作');
 		
 		$project_table = $this->table->generate($project_data);
@@ -59,54 +31,84 @@ class Release extends CI_Controller {
 		$this->load->view('AdminTwo/project_page',$page_data);
 	}
 	
-	public function version($id,$name)
-	{
-		$versionlist = $this->Release_model->get_project_version($id,1);
-		$version_data = get_version_data($versionlist);
-
-		//页面信息
-		$page_data['page_title'] = $name;
+	public function version($project_id)
+	{	
+		$this->load->library('table');
 		
-		//页面信息
-		$page_data['android_table_title'] = '安卓版本列表';
-		$page_data['IOS_table_title'] = '苹果版本列表';
-
-		//设置表格样式dataTables
-		$dataTables = array (
+		$version_page_data['page_title'] = $this->Release_model->get_project_name($project_id);
 		
-				'table_open'          => '<table class="table table-striped table-bordered table-hover" id="dataTables-example">',
+		$version_count = $this->Release_model->get_version_count($project_id);
+		for ($i =0 ; $i < count($version_count);$i++){
+			$versionlist = $this->Release_model->get_project_version($project_id,$version_count[$i]);
+			if($version_count[$i] == 1){
+				$version_table[$i]['tittle'] = '安卓版本列表';				
+			}else if($version_count[$i] == 2){
+				$version_table[$i]['tittle'] = '苹果版本列表';
+			}
+			$this->table->set_template(default_table_style());
+			$this->table->set_heading('版本号', '上传时间', '文件地址','操作');
+			$version_table[$i]['data'] = $this->table->generate(get_version_data($versionlist));
+		}
+		$version_page_data['version_table'] = $version_table;
 		
-				'heading_row_start'   => '<tr>',
-				'heading_row_end'     => '</tr>',
-				'heading_cell_start'  => '<th>',
-				'heading_cell_end'    => '</th>',
+		$this->load->view('AdminTwo/version_page',$version_page_data);
 		
-				'row_start'           => '<tr class="odd gradeX">',
-				'row_end'             => '</tr>',
-				'cell_start'          => '<td>',
-				'cell_end'            => '</td>',
-		
-				'row_alt_start'       => '<tr class="even gradeC">',
-				'row_alt_end'         => '</tr>',
-				'cell_alt_start'      => '<td>',
-				'cell_alt_end'        => '</td>',
-		
-				'table_close'         => '</table>'
-		);
-		$this->table->set_template($dataTables);
-	
-		$this->table->set_heading('版本号', '上传时间', '文件地址','操作');
-	
-		$version_table = $this->table->generate($version_data);
-	
-		$page_data['version_table'] = $version_table;
-	
-		$this->load->view('AdminTwo/version_page',$page_data);
 	}
+	
+	public function create_version()
+	{
+		$this->load->library('form_validation');
+		$this->load->library('input');
+		$this->load->helper('form');
+		
+
+		
+		$page_data['page_title'] = '产品发布管理';
+		$page_data['project_name'] = '贵州高速通';
+		$page_data['project_id'] = '2';
+		$this->load->view('AdminTwo/upload',$page_data);
+	}
+	
+	
+	function create_version_submit()
+	{			
+		$project_id = $this->input->post('project_id');
+		$version_type = $this->input->post('version_type');
+		$version_name = $this->input->post('version_name');
+		
+		$product = $this->product_fild_upload();
+		$file_name = $product['success']['file_name'];
+		$file_url = $product['success']['full_path'];
+		
+		$this->load->helper('date');	
+		$version_date =  mdate("%Y-%m-%d", time());
+		echo $version_date;
+		echo $this->Release_model->insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type);
+	}
+	
+	function product_fild_upload()
+	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '10000';
+	
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload('product')) {
+			$error = array('error' => $this->upload->display_errors());
+			return $error;
+		}else {
+			$upload_data = array('success' => $this->upload->data());
+			return $upload_data;
+		}
+	}
+	
 	
 	public function version_delete()
 	{
+		$this->load->library('form_validation');
 		$this->load->library('input');
+		$this->load->helper('form');
 		$del_version_id = $this->input->post('del_version_id');
 		$del_result = $this->Release_model->delete_version($del_version_id);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');

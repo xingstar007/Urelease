@@ -13,6 +13,25 @@ class Release_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	function get_project_name($id)
+	{
+		$sql = 'SELECT project_name FROM rel_project WHERE project_id = ?';
+		$query = $this->db->query($sql,$id);		
+		return $query->row()->project_name;
+	}
+	
+	function get_version_count($id)
+	{
+		$sql = 'SELECT version_type FROM rel_version WHERE project_id = ? GROUP BY version_type';
+		$query = $this->db->query($sql,$id)->result_array();
+		$res = array();
+		for ($i = 0;$i < count($query);$i++){
+			$res[$i] = $query[$i]['version_type'];
+		}
+		return $res;
+	}
+	
+	
 	function get_project_version($id,$type)
 	{
 		$sql = 'SELECT * FROM rel_version WHERE project_id = ? AND version_type = ?';
@@ -28,4 +47,15 @@ class Release_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	function insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type)
+	{
+		$sql = 'INSERT INTO rel_version VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		$data = array(null,$version_name,$version_date,$project_id,$file_name,$file_url,null,$version_type);
+		$this->db->query($sql,$data);
+		return $this->db->affected_rows();
+	}
+	
+	
+	
+	
 }

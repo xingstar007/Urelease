@@ -13,3 +13,8 @@ body {
 }
 
 .carousel-control .icon-next {}
+
+.btn-right-header{
+	margin:42px 20px 22px 20px;
+	float:right;
+}

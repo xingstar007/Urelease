@@ -21,12 +21,12 @@
     <script src="<?php echo base_url().__TEMPLATES_FOLDER__ ?>js/my.js"></script>
     
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<!--     <script> -->
-//     $(document).ready(function() {
-//         $('#dataTables-example').dataTable();
-//     });
+     <script>
+     $(document).ready(function() {
+         $('#dataTables-example').dataTable();
+     });
     </script>
-    
+
 </footer>
 
 

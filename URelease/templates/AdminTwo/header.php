@@ -13,7 +13,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<?php echo base_url().__TEMPLATES_FOLDER__ ?>css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo base_url().__TEMPLATES_FOLDER__ ?>css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<?php echo base_url().__TEMPLATES_FOLDER__ ?>css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
