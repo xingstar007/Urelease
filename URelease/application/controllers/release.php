@@ -33,8 +33,7 @@ class Release extends CI_Controller {
 	
 	public function version($project_id)
 	{	
-		$this->load->library('table');
-		$this->load->library('form_validation');
+		$this->load->library('table');		
 		$this->load->library('input');
 		$this->load->helper('form');
 		
@@ -62,26 +61,34 @@ class Release extends CI_Controller {
 	
 	function create_version_submit()
 	{
-		$product_result = $this->product_fild_upload();
-		if (array_keys($product_result)[0]== 'success'){
-			$product = element('success', $product_result);
-			$project_id = $this->input->post('project_id');
-			$version_type = $this->input->post('version_type');
-			$version_name = $this->input->post('version_name');
-						
-			$file_name = $product['file_name'];
-			$file_url = $product['full_path'];
+		$this->load->library('form_validation');
+
+		$project_id = $this->input->post('project_id');
+		$version_type = $this->input->post('version_type');
+		$version_name = $this->input->post('version_name');
+		
+		if(is_null($project_id )||is_null($version_type)||is_null($version_name)){
 			
-			$this->load->helper('date');
-			$version_date =  mdate("%Y-%m-%d", time());
+		} else {
+			$product_result = $this->product_fild_upload();
+			if (array_keys($product_result)[0]== 'success'){
+				$product = element('success', $product_result);
 			
-			$this->Release_model->insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type);
-			$this->version($project_id);
-		}else {
-			$error = element('error', $product_result);
-			
+					
+				$file_name = $product['full_path'];
+				$file_url = base_url().'uploads/'.$product['file_name'];
+					
+				$this->load->helper('date');
+				$version_date =  mdate("%Y-%m-%d", time());
+					
+				$this->Release_model->insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type);
+				$this->version($project_id);
+			}else {
+				$error = element('error', $product_result);
+					
+			}
 		}
-			
+						
 	}
 	
 	function product_fild_upload()
@@ -89,7 +96,8 @@ class Release extends CI_Controller {
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size'] = '10000';
-	
+		$config['encrypt_name'] = 'TRUE';
+		
 		$this->load->library('upload', $config);
 	
 		if ( ! $this->upload->do_upload('product')) {
@@ -109,7 +117,7 @@ class Release extends CI_Controller {
 		$del_version_id = $this->input->post('del_version_id');
 		$del_result = $this->Release_model->delete_version($del_version_id);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
-		return json_encode($del_result);
+		echo json_encode($del_result);
 	}
 	
 	
