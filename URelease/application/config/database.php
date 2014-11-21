@@ -66,9 +66,9 @@ $db['default']['stricton'] = FALSE;
 
 $active_group = 'release';
 
-$db['release']['hostname'] = "localhost";
+$db['release']['hostname'] = "127.0.0.1";
 $db['release']['username'] = "root";
-$db['release']['password'] = "admin";
+$db['release']['password'] = "root";
 $db['release']['database'] = "urelease";
 $db['release']['dbdriver'] = "mysql";
 $db['release']['dbprefix'] = "rel_";
