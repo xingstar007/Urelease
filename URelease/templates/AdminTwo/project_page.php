@@ -1,13 +1,10 @@
-<?php	if (!defined('BASEPATH')) {exit('Access Denied');}  
-		include 'header.php';
+<?php
+	if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+	include 'header.php';
 ?>
-
 <body>
-
     <div id="wrapper">
-    
 		<?php include 'navigation.php';?>
-
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -37,10 +34,7 @@
             </div>
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
-
 </body>
-
 <?php	include 'footer.php'; ?>
