@@ -24,4 +24,15 @@ class Widget {
 		return $b.$content.$end;
 	}
 	
+	function public_radio($type,$id,$bool)
+	{
+		if($bool)
+		{
+			$r = '<input name="'.$type.'" type="radio" value='.$id.' checked/>';
+		}else {
+			$r = '<input name="'.$type.'" type="radio" value='.$id.'/>';
+		}
+		return $r;
+	}
+	
 }

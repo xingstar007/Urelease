@@ -30,7 +30,8 @@ class VersionRelease {
 				$v_data[$i][0] = $v_list[$i]['version_name'];
 				$v_data[$i][1] = $v_list[$i]['version_date'];
 				$v_data[$i][2] = $v_list[$i]['file_url'];
-				$v_data[$i][3] = $this->CI->widget->delete_version($v_id,DELETE);
+				$v_data[$i][3] = $this->CI->widget->public_radio($v_list[$i]['version_type'],$v_id,$v_list[$i]['is_pubic']);
+				$v_data[$i][4] = $this->CI->widget->delete_version($v_id,DELETE);
 			}
 		}
 		return $v_data;

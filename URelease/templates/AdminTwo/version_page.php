@@ -21,13 +21,17 @@
 							<option value ="2">IOS</option>
 						</select>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<label>版本号</label>
 						<input name="version_name" class="form-control">
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<label>版本上传</label>
  						<input type="file" name="product" >
+					</div>
+					<div class="col-lg-2">						
+ 						<input name="Fruit" type="checkbox" value=""  checked/>
+ 						<label>是否发布</label>
 					</div>
 					<div class="col-lg-2">
 						<button id= "myForm2" type="submit" name="project_id" value="<?php  echo $project_id; ?>" class="btn btn-outline btn-default ">提交</button>

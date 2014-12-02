@@ -36,7 +36,7 @@ if( !function_exists("project_table_heading")){
 
 if( !function_exists("version_table_heading")){
 	function version_table_heading(){
-		$heading = array ('版本号', '上传时间', '文件地址','操作');
+		$heading = array ('版本号', '上传时间', '文件地址','是否发布','操作');
 		return	$heading;
 	}
 }
