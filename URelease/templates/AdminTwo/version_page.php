@@ -30,7 +30,7 @@
  						<input type="file" name="product" >
 					</div>
 					<div class="col-lg-2">						
- 						<input name="Fruit" type="checkbox" value=""  checked/>
+ 						<input name="publish-flag" type="checkbox" value="1"  checked/>
  						<label>是否发布</label>
 					</div>
 					<div class="col-lg-2">

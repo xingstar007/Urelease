@@ -29,7 +29,7 @@ if( !function_exists("default_table_style")){
 
 if( !function_exists("project_table_heading")){
 	function project_table_heading(){
-		$heading = array ('项目ID', '项目名称', '项目下载页面地址','操作');
+		$heading = array ('项目ID', '项目名称', '项目下载页面地址','Android发布版本','IOS发布版本','操作');
 		return	$heading;
 	}
 }

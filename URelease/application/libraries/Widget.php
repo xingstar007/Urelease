@@ -28,9 +28,9 @@ class Widget {
 	{
 		if($bool)
 		{
-			$r = '<input name="'.$type.'" type="radio" value='.$id.' checked/>';
+			$r = '<input class="publish-flag" name="'.$type.'" type="radio" value='.$id.' checked/>';
 		}else {
-			$r = '<input name="'.$type.'" type="radio" value='.$id.'/>';
+			$r = '<input class="publish-flag" name="'.$type.'" type="radio" value='.$id.'/>';
 		}
 		return $r;
 	}

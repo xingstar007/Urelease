@@ -74,6 +74,14 @@ class Release extends CI_Controller {
 		$project_id = $this->input->post('project_id');
 		$version_type = $this->input->post('version_type');
 		$version_name = $this->input->post('version_name');
+		$publish_flag = $this->input->post('publish-flag');
+		
+		if($publish_flag)
+		{
+			$is_publish = 1;
+		}else {
+			$is_publish = 0;
+		}
 		
 		if(($project_id =='')||$version_type==''||$version_name =='')
 		{
@@ -93,7 +101,7 @@ class Release extends CI_Controller {
 				$this->load->helper('date');
 				$version_date =  mdate("%Y-%m-%d", time());
 					
-				$this->Release_model->insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type);
+				$this->Release_model->insert_version($version_name,$version_date,$project_id,$file_name,$file_url,$version_type,$is_publish);
 				echo $this->version_talbe($project_id);
 			}
 			else
@@ -132,6 +140,15 @@ class Release extends CI_Controller {
 		$del_result = $this->Release_model->delete_version($del_version_id);
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		echo json_encode($del_result);
+	}
+	
+	public function version_publish()
+	{
+		$this->load->library('input');
+		$version_id = $this->input->post('version_id');
+		$result = $this->Release_model->update_version_publish($version_id);
+		$this->output->set_header('Content-Type: application/json; charset=utf-8');
+		echo json_encode($result);
 	}
 	
 	

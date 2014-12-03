@@ -41,6 +41,27 @@
 						return false;
 					}
 			});
+		});
+		$(".publish-flag").change(function() {
+			var $this = $(this)		
+			$.ajax({
+					type:"POST",
+					url: "release/version_publish/",
+					dataType:"json",
+					data:{"version_id":$(this).val()},
+					success:function(data){
+						if(data>0){
+							alert('success');
+						}
+						return false;
+					},
+					error:function(XMLHttpRequest){
+						alert('error');
+						alert(XMLHttpRequest.readyState);
+						alert(XMLHttpRequest.status);
+						return false;
+					}
+			});
 		});	
 	});
 </script>
