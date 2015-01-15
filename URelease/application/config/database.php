@@ -82,7 +82,23 @@ $db['release']['swap_pre'] = "rel_";
 $db['release']['autoinit'] = TRUE;
 $db['release']['stricton'] = FALSE;
 
+$active_group = 'discuz';
 
+$db['discuz']['hostname'] = "192.168.0.57";
+$db['discuz']['username'] = "root";
+$db['discuz']['password'] = "root";
+$db['discuz']['database'] = "discuz";
+$db['discuz']['dbdriver'] = "mysql";
+$db['discuz']['dbprefix'] = "pre_";
+$db['discuz']['pconnect'] = TRUE;
+$db['discuz']['db_debug'] = TRUE;
+$db['discuz']['cache_on'] = FALSE;
+$db['discuz']['cachedir'] = "";
+$db['discuz']['char_set'] = "utf8";
+$db['discuz']['dbcollat'] = "utf8_general_ci";
+$db['discuz']['swap_pre'] = "pre_";
+$db['discuz']['autoinit'] = TRUE;
+$db['discuz']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://127.0.0.1/MyTest/URelease/';
+$config['base_url']	= 'http://192.168.0.57/MyTest/URelease/';
 
 /*
 |--------------------------------------------------------------------------
