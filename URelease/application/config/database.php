@@ -84,7 +84,7 @@ $db['release']['stricton'] = FALSE;
 
 $active_group = 'discuz';
 
-$db['discuz']['hostname'] = "192.168.0.57";
+$db['discuz']['hostname'] = "192.168.0.125";
 $db['discuz']['username'] = "root";
 $db['discuz']['password'] = "root";
 $db['discuz']['database'] = "discuz";

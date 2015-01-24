@@ -75,32 +75,41 @@
 	<div class="col-lg-12">
 		<label> <?php  echo $result; ?> </label>
 	</div>
-	
-	<?php echo form_open('discuz/post_posts'); ?>
+		<?php echo form_open('discuz/edit_post'); ?>
 	<div class="col-lg-12">
-	<?php echo form_label("fid 版块ID 比如 38 "); ?>
-	</div>
-	<div class="col-lg-12">
-	<?php 
-		$fid = array(
-			'id'	=>	'fid',
-			'name'	=>	'fid',
-			'maxlength'	=>	'10',
+	<?php echo form_label("是否为主题"); 
+		$isthread = array(
+			'name'	=>	'isthread',
+			'value'	=>	'1',
+			'checked' =>	'checked',
 		);
-		echo form_input($fid);
+		echo form_checkbox($isthread);
 	?>
 	</div>
 		<div class="col-lg-12">
-	<?php echo form_label("tid 话题ID 比如18 "); ?>
+	<?php
+		echo form_label("pid 话题ID 比如18");
+	?>
 	</div>
 	<div class="col-lg-12">
-	<?php 
-		$tid = array(
-				'id'	=>	'tid',
-				'name'	=>	'tid',
+	<?php
+		$pid = array(
+				'id'	=>	'pid',
+				'name'	=>	'pid',
 				'maxlength'	=>	'100',
 		);
-		echo form_input($tid);
+		echo form_input($pid);
+	?>
+	</div>
+	<div class="col-lg-12"> <?php echo form_label("title 话题标题"); ?> </div>
+	<div class="col-lg-12">
+	<?php
+		$title = array(
+				'id'	=>	'title',
+				'name'	=>	'title',
+				'maxlength'	=>	'100',
+		);
+		echo form_input($title);
 	?>
 	</div>
 	<div class="col-lg-12">
@@ -113,46 +122,6 @@
 				'name'	=>	'content',
 		);
 		echo form_input($content);
-	?>
-	</div>
-	<div class="col-lg-12">
-	<?php
-		echo form_label("imgurl  图片URL");?>
-	</div>
-	<div class="col-lg-12">
-	<?php
-		$imgurl = array(
-				'id'	=>	'imgurl',
-				'name'	=>	'imgurl',
-				'maxlength'	=>	'100',
-		);
-		echo form_input($imgurl);
-	?>
-	</div>
-	<div class="col-lg-12">
-	<?php echo form_label("author 用户名 比如 test "); ?>
-	</div>
-	<div class="col-lg-12">
-	<?php
-		$author = array(
-				'id'	=>	'author',
-				'name'	=>	'author',
-				'maxlength'	=>	'100',
-		);
-		echo form_input($author);
-	?>
-	</div>
-	<div class="col-lg-12">
-	<?php echo form_label("author_id 用户ID 比如 2 "); ?>
-	</div>
-	<div class="col-lg-12">
-	<?php
-		$author_id = array(
-				'id'	=>	'author_id',
-				'name'	=>	'author_id',
-				'maxlength'	=>	'100',
-		);
-		echo form_input($author_id);
 	?>
 	</div>
 	<div id = 'body'>

@@ -3,19 +3,6 @@ date_default_timezone_set('PRC');
 
 class Discuz extends CI_Controller
 {
-	private $host = 'localhost';
-	private $username = 'root';
-	private $password = '123456';
-	private $database_name = 'ultrax';
-	private $_db = null;
-	private $fid = null;
-	private $title = null;
-	private $content = null;
-	private $author = null;
-	private $author_id = null;
-	private $current_time = null;
-	private $displayorder = null; //0:正常，-2:待审核
-	
 	function __construct()
 	{
 		parent::__construct();
@@ -38,6 +25,10 @@ class Discuz extends CI_Controller
 		$this->load->view('test2',array('result' => $return));
 	}
 	
+	function edit($return = '提交结果')
+	{
+		$this->load->view('test3',array('result' => $return));
+	}
 	
 	
 	public function post_posts() 
@@ -51,24 +42,33 @@ class Discuz extends CI_Controller
 		$this->author_id = $this->input->post('author_id');
 		$this->current_time = time();
 		$this->displayorder = $this->input->post('displayorder');
-		
+
+		//在主题内容最后加上图片
 		$this->imgurl = $this->input->post('imgurl');
 		$this->content = $this->content.'[img]'.$this->imgurl.'[/img]';
-		
+
+		//获取tid
 		$tid = $this->do_pre_forum_thread();
 		if(!$tid)
 		{
 			$return = '更新表 pre_forum_thread 失败<br />';
 		}
+		//获取pid
 		$pid = $this->do_pre_forum_post_tableid();
+		
+		//更新帖子主表
 		if(!$this->do_pre_forum_post($pid, $tid))
 		{
 			$return = '更新表 pre_forum_post 失败<br />';
 		}
+		
+		//更新论坛板块表的主题计数
 		if(!$this->do_pre_forum_forum())
 		{
 			$return = '更新表 pre_forum_forum 失败<br />';
 		}
+		
+		//如果设置帖子状态为未审核，需要添加到主题审核表中
 		if($this->displayorder == -2)
 		{
 			if(!($this->do_pre_forum_thread_moderate($tid)))
@@ -76,17 +76,22 @@ class Discuz extends CI_Controller
 				$return = '更新表 pre_forum_thread_moderate 失败<br />';
 			}
 		}
+		//更新趋势统计表的主题数量和帖子数量
 		if(!$this->do_pre_common_stat())
 		{
 			$return = '更新表 pre_common_stat 失败<br />';
 		}
+		
+		//更新最新主题表
 		if(!$this->do_pre_forum_newthread($tid))
 		{
 			$return = '更新表 pre_common_stat 失败<br />';
 		}
+		
+		//更新会员发帖数量
 		$return = ($this->do_pre_common_member_count()) ? '发帖成功<br />' : '更新表 pre_pre_common_member_count 失败<br />';
-	
-		$this-> index($return);
+// 		$this-> index($return);
+		$this->load->view('test',array('result' => $return));
 	}
 	
 	public function post_reply()
@@ -120,11 +125,68 @@ class Discuz extends CI_Controller
 		}
 		$return = ($this->do_reply_pre_common_member_count()) ? '回复成功<br />' : '更新表 pre_pre_common_member_count 失败<br />';
 	
-		$this-> reply($return);
+// 		$this-> reply($return);
+		$this->load->view('test',array('result' => $return));
+	}
+	
+	public function edit_post()
+	{
+		$isThread = $this->input->post('isthread');
+		$this->pid = $this->input->post('pid');
+		$this->fid = $this->input->post('fid');
+		$this->content = $this->input->post('content');
+		$this->title = $this->input->post('title');
+
+		
+		
+		if($this->update_pre_forum_post($this->pid))
+		{
+			if($isThread){
+				if($this->update_pre_forum_thread($this->get_tid($this->pid))){
+					$return = '更新成功2';
+				}else {
+					$return = '更新失败2';
+				}
+			}else {
+				$return = '更新成功'.$isThread;
+			}
+		}else {
+			$return = '更新失败';
+		}
+		$this->load->view('test3',array('result' => $return));
+	}
+	
+	private function get_tid($pid)
+	{
+		$sql = "SELECT tid FROM pre_forum_post WHERE pid = {$pid} ";
+		$query = $this->db->query($sql);
+		return $query->row()->tid;
 	}
 	
 	
+	private function update_pre_forum_thread($tid)
+	{
+		$subject = $this->title;
+		$sql = "UPDATE `pre_forum_thread` SET `subject`= '{$subject}' WHERE `tid`= {$tid}";
+		$this->db->query($sql);
+		$result = $this->db->affected_rows();
+		return ($result == 1) ? true : false;
+	}
 	
+	private function update_pre_forum_post($pid)
+	{
+		$message = $this->content;
+		if(is_null($this->title))
+		{
+			$sql = "UPDATE `pre_forum_post` SET `message`= '{$message}' WHERE `pid`= {$pid}";
+		}else {
+			$subject = $this->title;
+			$sql = "UPDATE `pre_forum_post` SET `subject`= '{$subject}',`message`= '{$message}' WHERE `pid`= {$pid}";
+		}
+		$this->db->query($sql);
+		$result = $this->db->affected_rows();
+		return ($result == 1) ? true : false;
+	}
 	
 	private function do_pre_forum_thread()
 	{
@@ -171,6 +233,7 @@ class Discuz extends CI_Controller
 		$data['subject'] = $this->title;
 		$data['dateline'] = $this->current_time;
 		$data['message'] = $this->content;
+		$data['htmlon'] = 1;
 		
 		$this->db->insert('pre_forum_post', $data);
 		$result = $this->db->affected_rows();

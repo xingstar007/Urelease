@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
+	<script src="http://dzqun.gtimg.cn/openapp/scripts/interface.js" type="text/javascript" charset="utf-8"></script>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
-
+    <link href="<?php echo base_url().__TEMPLATES_FOLDER__ ?>css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 
 	::selection{ background-color: #E13300; color: white; }
@@ -67,31 +68,32 @@
 <body>
 
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-	<div>
-		<label>
-			<?php 
-				echo $result;
-			?>
-		</label>
+	<h1>
+		<input type="button" class="button" value="发表主题" onclick="location='./index'"/> 
+		<input type="button" class="button" value="发表回复" onclick="location='./reply'"/>
+		<input type="button" class="button" value="编辑主题/回复" onclick="location='./edit'"/>
+	</h1>
+	<div class="col-lg-12">
+		<label> <?php  echo $result; ?> </label>
 	</div>
-	<div id="body">
 	
 	<?php echo form_open('discuz/post_posts'); ?>
-	<div>
-	<?php
-		echo form_label("fid 版块ID 比如 38 ");
+	<div class="col-lg-12">
+	<?php echo form_label("fid 版块ID 比如 38 "); ?>
+	</div>
+	<div class="col-lg-12">
+	<?php 
 		$fid = array(
-				'id'	=>	'fid',
-				'name'	=>	'fid',
-				'maxlength'	=>	'100',
+			'id'	=>	'fid',
+			'name'	=>	'fid',
+			'maxlength'	=>	'10',
 		);
 		echo form_input($fid);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12"> <?php echo form_label("title 话题标题"); ?> </div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("title 话题标题");
 		$title = array(
 				'id'	=>	'title',
 				'name'	=>	'title',
@@ -100,20 +102,24 @@
 		echo form_input($title);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12">
+	<?php echo form_label("content  话题内容"); ?>
+	</div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("content  话题内容");
 		$content = array(
 				'id'	=>	'content',
 				'name'	=>	'content',
-				'maxlength'	=>	'100',
 		);
 		echo form_input($content);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("imgurl  图片URL");
+		echo form_label("imgurl  图片URL");?>
+	</div>
+	<div class="col-lg-12">
+	<?php
 		$imgurl = array(
 				'id'	=>	'imgurl',
 				'name'	=>	'imgurl',
@@ -122,9 +128,11 @@
 		echo form_input($imgurl);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12">
+	<?php echo form_label("author 用户名 比如 test "); ?>
+	</div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("author 用户名 比如 test ");
 		$author = array(
 				'id'	=>	'author',
 				'name'	=>	'author',
@@ -133,9 +141,11 @@
 		echo form_input($author);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12">
+	<?php echo form_label("author_id 用户ID 比如 2 "); ?>
+	</div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("author_id 用户ID 比如 2 ");
 		$author_id = array(
 				'id'	=>	'author_id',
 				'name'	=>	'author_id',
@@ -144,9 +154,12 @@
 		echo form_input($author_id);
 	?>
 	</div>
-	<div>
+	<div class="col-lg-12">
 	<?php
-		echo form_label("displayorder  帖子级别 -2 ~ 3  正常为0 ，板块置顶 为 1");
+		echo form_label("displayorder  帖子级别 -2 ~ 3  正常为0 ，板块置顶 为 1"); ?>
+	</div>
+	<div class="col-lg-12">
+	<?php
 		$displayorder = array(
 				'id'	=>	'displayorder',
 				'name'	=>	'displayorder',
@@ -154,12 +167,25 @@
 		);
 		echo form_input($displayorder);	
 	?>
-	<div>
+	</div>
+	<div id = 'body'>
 		<button type="submit" name="project_id">提交</button>
 	</div>
-	</div>
-
+	
 </div>
 
 </body>
+<script>
+if (typeof wsqOpenApp == 'undefined') {
+	document.getElementById('content').value ='1';
+	document.addEventListener('wsqOpenAppReady',function(e){
+		document.getElementById('content').value ='2';
+	});
+	
+	} else {
+	}
+
+</script>
+
+
 </html>
